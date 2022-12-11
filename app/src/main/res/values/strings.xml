@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">APIApp</string>
+    <string name="position">Location</string>
+    <string name="textview">TextView</string>
+    <string name="button">Button</string>
+    <string name="title">Title</string>
+    <string name="price">Price</string>
+</resources>
