@@ -1,31 +1,43 @@
 package at.htlklu.apiapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
 import at.htlklu.apiapp.services.Constants;
-import at.htlklu.apiapp.services.WeatherDataParser;
+import at.htlklu.apiapp.services.AsyncLocation;
+import at.htlklu.apiapp.services.AsyncParseWeatherData;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText txt_location;
+    EditText txt_locationInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        txt_location = findViewById(R.id.txt_locationInput);
+        txt_locationInput = findViewById(R.id.txt_locationInput);
+
     }
 
     public void downloadButtonPressed(View view) {
-            WeatherDataParser task = new WeatherDataParser(this);
-            task.execute(Constants.URL,
-                    Constants.API_KEY,
-                    "q=" + txt_location.getText().toString(),
-                    Constants.UNITS_METRIC,
-                    Constants.LANG_DE);
+        if (txt_locationInput.getText().toString().isEmpty()) {
+            AsyncLocation task = new AsyncLocation(this);
+            task.execute();
+        } else {
+            setWeather();
+        }
+    }
+
+    private void setWeather() {
+        AsyncParseWeatherData task = new AsyncParseWeatherData(this);
+        task.execute(Constants.URL,
+                Constants.API_KEY,
+                "q=" + txt_locationInput.getText().toString(),
+                Constants.UNITS_METRIC,
+                Constants.LANG_DE);
     }
 }
