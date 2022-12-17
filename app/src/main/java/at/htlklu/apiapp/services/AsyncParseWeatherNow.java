@@ -12,6 +12,7 @@ import com.google.gson.JsonParser;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Date;
 
 import at.htlklu.apiapp.MainActivity;
 import at.htlklu.apiapp.R;
@@ -21,11 +22,11 @@ import at.htlklu.apiapp.data.Weather;
 import at.htlklu.apiapp.data.WeatherData;
 import at.htlklu.apiapp.data.Wind;
 
-public class AsyncParseWeatherData extends AsyncTask<String, Integer, WeatherData> {
+public class AsyncParseWeatherNow extends AsyncTask<String, Integer, WeatherData> {
 
     private MainActivity activity;
 
-    public AsyncParseWeatherData(MainActivity activity) {
+    public AsyncParseWeatherNow(MainActivity activity) {
         this.activity = activity;
     }
 
@@ -43,7 +44,7 @@ public class AsyncParseWeatherData extends AsyncTask<String, Integer, WeatherDat
         try {
             URL = new URL(url.toString());
             jsonObject = JsonParser.parseReader(new InputStreamReader(URL.openStream())).getAsJsonObject();
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
@@ -55,14 +56,19 @@ public class AsyncParseWeatherData extends AsyncTask<String, Integer, WeatherDat
 
         Wind wind = getWind(jsonObject, gson);
 
-        return new WeatherData(location, mainStats, weather, wind);
+        return new WeatherData(location, mainStats, weather, wind, var[2]);
     }
 
     @Override
     protected void onPostExecute(WeatherData weatherData) {
         if (weatherData != null) {
             TextView dataOutput = activity.findViewById(R.id.txt_title);
-            dataOutput.setText(weatherData.toString());
+            dataOutput.setText(String.format("%s%n%s%n%s%n%.0f°C%n%s",
+                    weatherData.getPosition().getName().substring(1, weatherData.getPosition().getName().length() -1 ),
+                    weatherData.getDayOfWeekAsString(),
+                    weatherData.getDate(),
+                    weatherData.getMainStats().getTemp(),
+                    weatherData.getWeather().getDescription()));
             activity.findViewById(R.id.cardContainer).setVisibility(View.VISIBLE);
         }
     }

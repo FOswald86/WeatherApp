@@ -7,7 +7,7 @@ import android.widget.EditText;
 
 import at.htlklu.apiapp.services.Constants;
 import at.htlklu.apiapp.services.AsyncLocation;
-import at.htlklu.apiapp.services.AsyncParseWeatherData;
+import at.htlklu.apiapp.services.AsyncParseWeatherNow;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setWeather() {
-        AsyncParseWeatherData task = new AsyncParseWeatherData(this);
+        AsyncParseWeatherNow task = new AsyncParseWeatherNow(this);
         task.execute(Constants.URL,
                 Constants.API_KEY,
                 "q=" + txt_locationInput.getText().toString(),

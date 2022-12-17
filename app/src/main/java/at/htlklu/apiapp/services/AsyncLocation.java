@@ -6,18 +6,14 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.widget.EditText;
-
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
-
 import at.htlklu.apiapp.MainActivity;
 import at.htlklu.apiapp.R;
 
