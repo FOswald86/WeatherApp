@@ -12,6 +12,7 @@ import at.htlklu.apiapp.services.AsyncParseWeatherNow;
 public class MainActivity extends AppCompatActivity {
 
     EditText txt_locationInput;
+    AsyncLocation asyncLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,13 +21,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         txt_locationInput = findViewById(R.id.txt_locationInput);
+        asyncLocation = new AsyncLocation(this);
+        asyncLocation.execute();
 
     }
 
     public void downloadButtonPressed(View view) {
         if (txt_locationInput.getText().toString().isEmpty()) {
-            AsyncLocation task = new AsyncLocation(this);
-            task.execute();
+            asyncLocation.execute();
         } else {
             setWeather();
         }

@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -44,8 +46,8 @@ public class AsyncParseWeatherNow extends AsyncTask<String, Integer, WeatherData
         try {
             URL = new URL(url.toString());
             jsonObject = JsonParser.parseReader(new InputStreamReader(URL.openStream())).getAsJsonObject();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (IOException e) {
+            return null;
         }
 
         Position location = getLocation(jsonObject, gson);
@@ -61,15 +63,17 @@ public class AsyncParseWeatherNow extends AsyncTask<String, Integer, WeatherData
 
     @Override
     protected void onPostExecute(WeatherData weatherData) {
+        TextView dataOutput = activity.findViewById(R.id.txt_title);
+        activity.findViewById(R.id.cardContainer).setVisibility(View.VISIBLE);
         if (weatherData != null) {
-            TextView dataOutput = activity.findViewById(R.id.txt_title);
             dataOutput.setText(String.format("%s%n%s%n%s%n%.0f°C%n%s",
                     weatherData.getPosition().getName().substring(1, weatherData.getPosition().getName().length() -1 ),
                     weatherData.getDayOfWeekAsString(),
                     weatherData.getDate(),
                     weatherData.getMainStats().getTemp(),
                     weatherData.getWeather().getDescription()));
-            activity.findViewById(R.id.cardContainer).setVisibility(View.VISIBLE);
+        } else {
+            dataOutput.setText("Ort nicht gefunden");
         }
     }
 
@@ -104,6 +108,20 @@ public class AsyncParseWeatherNow extends AsyncTask<String, Integer, WeatherData
         // cityname
         location.setName(String.valueOf(jsonObject.get("name")));
         return location;
+    }
+
+    private void buildAlertDialog_wrongLocationInput() {
+        TextView dataOutput = activity.findViewById(R.id.txt_title);
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle("Ungültige Eingabe");
+        builder.setMessage("Ort nicht gefunden");
+        builder.setCancelable(false);
+        builder.setPositiveButton("OK", (dialogInterface, i) -> {
+            dataOutput.setText("");
+            activity.findViewById(R.id.cardContainer).setVisibility(View.VISIBLE);
+            dialogInterface.cancel();
+        });
+        builder.show();
     }
     //endregion
 
