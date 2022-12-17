@@ -27,12 +27,6 @@ public class AsyncLocation extends AsyncTask<String, Integer, AsyncLocation> {
         this.fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity);
     }
 
-    private void askPremission() {
-        int REQUEST_CODE = 100;
-        ActivityCompat.requestPermissions(this.activity, new String[]
-                {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
-    }
-
     @Override
     protected AsyncLocation doInBackground(String... strings) {
         if (ContextCompat.checkSelfPermission(this.activity,
@@ -58,5 +52,11 @@ public class AsyncLocation extends AsyncTask<String, Integer, AsyncLocation> {
             askPremission();
         }
         return null;
+    }
+
+    private void askPremission() {
+        int REQUEST_CODE = 100;
+        ActivityCompat.requestPermissions(this.activity, new String[]
+                {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
     }
 }
