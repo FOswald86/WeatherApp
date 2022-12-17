@@ -66,12 +66,13 @@ public class AsyncParseWeatherNow extends AsyncTask<String, Integer, WeatherData
         TextView dataOutput = activity.findViewById(R.id.txt_title);
         activity.findViewById(R.id.cardContainer).setVisibility(View.VISIBLE);
         if (weatherData != null) {
-            dataOutput.setText(String.format("%s%n%s%n%s%n%.0f°C%n%s",
+            dataOutput.setText(String.format("%s%n%s%n%s%n%.0f°C%n%s%n%s",
                     weatherData.getPosition().getName().substring(1, weatherData.getPosition().getName().length() -1 ),
                     weatherData.getDayOfWeekAsString(),
                     weatherData.getDate(),
                     weatherData.getMainStats().getTemp(),
-                    weatherData.getWeather().getDescription()));
+                    weatherData.getWeather().getDescription(),
+                    weatherData.getWeather().getIcon()));
         } else {
             dataOutput.setText("Ort nicht gefunden");
         }
@@ -108,20 +109,6 @@ public class AsyncParseWeatherNow extends AsyncTask<String, Integer, WeatherData
         // cityname
         location.setName(String.valueOf(jsonObject.get("name")));
         return location;
-    }
-
-    private void buildAlertDialog_wrongLocationInput() {
-        TextView dataOutput = activity.findViewById(R.id.txt_title);
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle("Ungültige Eingabe");
-        builder.setMessage("Ort nicht gefunden");
-        builder.setCancelable(false);
-        builder.setPositiveButton("OK", (dialogInterface, i) -> {
-            dataOutput.setText("");
-            activity.findViewById(R.id.cardContainer).setVisibility(View.VISIBLE);
-            dialogInterface.cancel();
-        });
-        builder.show();
     }
     //endregion
 

@@ -40,6 +40,6 @@ public class MainActivity extends AppCompatActivity {
                 Constants.API_KEY,
                 "q=" + txt_locationInput.getText().toString(),
                 Constants.UNITS_METRIC,
-                Constants.LANG_DE);
+                Constants.LANG_EN);
     }
 }
