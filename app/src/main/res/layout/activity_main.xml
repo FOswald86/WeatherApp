@@ -20,13 +20,16 @@
         app:layout_constraintTop_toBottomOf="@+id/txt_locationInput" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:textAlignment="center"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/btn_search"
         app:layout_constraintStart_toStartOf="@+id/btn_search"
-        app:layout_constraintTop_toBottomOf="@+id/btn_search">
+        app:layout_constraintTop_toBottomOf="@+id/btn_search"
+        tools:visibility="invisible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cardContainer"

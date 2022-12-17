@@ -1,5 +1,6 @@
 package at.htlklu.apiapp.services;
 
+import android.graphics.drawable.Icon;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ImageView;
@@ -60,7 +61,7 @@ public class AsyncParseWeatherNow extends AsyncTask<String, Integer, WeatherData
     @Override
     protected void onPostExecute(WeatherData weatherData) {
         TextView dataOutput = activity.findViewById(R.id.txt_title);
-        activity.findViewById(R.id.cardContainer).setVisibility(View.VISIBLE);
+        activity.findViewById(R.id.cardView).setVisibility(View.VISIBLE);
         if (weatherData != null) {
             dataOutput.setText(String.format("%s%n%s%n%s%n%.0f°C%n%s",
                     weatherData.getPosition().getName().substring(1, weatherData.getPosition().getName().length() -1 ),
@@ -74,7 +75,10 @@ public class AsyncParseWeatherNow extends AsyncTask<String, Integer, WeatherData
             Picasso.get().load(url).into(imageView);
 
         } else {
-            dataOutput.setText("Ort nicht gefunden");
+            dataOutput.setText("Ort nicht gefunden\n");
+            ImageView imageView = activity.findViewById(R.id.imageView);
+            String url = "https://images.all-free-download.com/images/graphiclarge/cancel_2_102148.jpg";
+            Picasso.get().load(url).into(imageView);
         }
     }
 
