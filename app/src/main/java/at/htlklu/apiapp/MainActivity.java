@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-
 import at.htlklu.apiapp.services.Constants;
 import at.htlklu.apiapp.services.AsyncLocation;
 import at.htlklu.apiapp.services.AsyncParseWeatherNow;

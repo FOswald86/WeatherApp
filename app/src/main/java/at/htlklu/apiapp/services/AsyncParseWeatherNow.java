@@ -1,27 +1,17 @@
 package at.htlklu.apiapp.services;
 
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AlertDialog;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.squareup.picasso.Picasso;
-
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.Date;
-
 import at.htlklu.apiapp.MainActivity;
 import at.htlklu.apiapp.R;
 import at.htlklu.apiapp.data.MainStats;
