@@ -1,7 +1,10 @@
 package at.htlklu.apiapp.services;
 
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -10,10 +13,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Date;
 
 import at.htlklu.apiapp.MainActivity;
@@ -66,13 +72,17 @@ public class AsyncParseWeatherNow extends AsyncTask<String, Integer, WeatherData
         TextView dataOutput = activity.findViewById(R.id.txt_title);
         activity.findViewById(R.id.cardContainer).setVisibility(View.VISIBLE);
         if (weatherData != null) {
-            dataOutput.setText(String.format("%s%n%s%n%s%n%.0f°C%n%s%n%s",
+            dataOutput.setText(String.format("%s%n%s%n%s%n%.0f°C%n%s",
                     weatherData.getPosition().getName().substring(1, weatherData.getPosition().getName().length() -1 ),
                     weatherData.getDayOfWeekAsString(),
                     weatherData.getDate(),
                     weatherData.getMainStats().getTemp(),
-                    weatherData.getWeather().getDescription(),
-                    weatherData.getWeather().getIcon()));
+                    weatherData.getWeather().getDescription()));
+
+            String url = String.format("https://openweathermap.org/img/wn/%s@2x.png", weatherData.getWeather().getIcon());
+            ImageView imageView = activity.findViewById(R.id.imageView);
+            Picasso.get().load(url).into(imageView);
+
         } else {
             dataOutput.setText("Ort nicht gefunden");
         }

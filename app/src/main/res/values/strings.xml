@@ -5,4 +5,7 @@
     <string name="button">Button</string>
     <string name="title">Title</string>
     <string name="current_location">Current Location</string>
+    <string name="anfordern">anfordern</string>
+    <string name="ort_eingeben">Ort eingeben</string>
+    <string name="todo">TODO</string>
 </resources>
