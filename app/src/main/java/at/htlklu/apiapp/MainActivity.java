@@ -27,14 +27,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void downloadButtonPressed(View view) {
-        if (txt_locationInput.getText().toString().isEmpty()) {
-            asyncLocation.execute();
-        } else {
-            setWeather();
-        }
-    }
-
-    private void setWeather() {
         AsyncParseWeatherNow task = new AsyncParseWeatherNow(this);
         task.execute(Constants.URL,
                 Constants.API_KEY,
